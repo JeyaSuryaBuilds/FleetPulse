@@ -59,13 +59,6 @@ Build and cache
 .parcel-cache/
 .eslintcache/
 
-Local database backups and dumps
-
-*.sql
-*.sql.gz
-*.dump
-*.bak
-
 Certificates and private keys
 
 *.pem
