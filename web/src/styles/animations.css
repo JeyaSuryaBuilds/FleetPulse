@@ -1,0 +1,66 @@
+/* FleetPulse motion. Subtle, short, and fully disabled by prefers-reduced-motion. */
+
+@keyframes fp-fade-in   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fp-rise      { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fp-scale-in  { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes fp-slide-in-right { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+@keyframes fp-slide-in-left  { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
+@keyframes fp-shimmer   { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes fp-spin      { to { transform: rotate(360deg); } }
+@keyframes fp-status-pulse {
+  0%   { box-shadow: 0 0 0 0 currentColor; opacity: 1; }
+  70%  { box-shadow: 0 0 0 6px transparent; opacity: 0.85; }
+  100% { box-shadow: 0 0 0 0 transparent; opacity: 1; }
+}
+/* Route line: draw once (set pathLength="1" on the <path>) */
+@keyframes fp-route-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+/* Route line: dashes travelling along the path, for an active journey */
+@keyframes fp-route-flow { to { stroke-dashoffset: -24; } }
+@keyframes fp-loader-trace { 0% { stroke-dashoffset: 1; } 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+
+/* Utilities */
+.fp-fade-in   { animation: fp-fade-in var(--fp-dur-base) var(--fp-ease) both; }
+.fp-rise      { animation: fp-rise var(--fp-dur-slow) var(--fp-ease) both; }
+.fp-scale-in  { animation: fp-scale-in var(--fp-dur-base) var(--fp-ease) both; }
+.fp-slide-in-right { animation: fp-slide-in-right var(--fp-dur-base) var(--fp-ease) both; }
+.fp-slide-in-left  { animation: fp-slide-in-left var(--fp-dur-base) var(--fp-ease) both; }
+
+/* Staggered entrance: <div class="fp-rise" style="--fp-i: 2"> */
+.fp-stagger > *  { animation: fp-rise var(--fp-dur-slow) var(--fp-ease) both; animation-delay: calc(var(--fp-i, 0) * 45ms); }
+
+.fp-skeleton {
+  background: linear-gradient(90deg, var(--fp-card) 25%, var(--fp-card-raised) 37%, var(--fp-card) 63%);
+  background-size: 400% 100%;
+  animation: fp-shimmer 1.6s linear infinite;
+  border-radius: var(--fp-radius-sm);
+}
+.fp-spinner {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--fp-border-strong); border-top-color: var(--fp-orange);
+  animation: fp-spin 0.8s linear infinite;
+}
+.fp-status-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.fp-status-dot[data-live='true'] { animation: fp-status-pulse 2s ease-out infinite; }
+
+.fp-route-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: fp-route-draw 1.2s var(--fp-ease) forwards; }
+.fp-route-flow { stroke-dasharray: 6 6; animation: fp-route-flow 1.2s linear infinite; }
+
+/* Interaction transitions */
+.fp-hover-lift { transition: transform var(--fp-dur-base) var(--fp-ease), box-shadow var(--fp-dur-base) var(--fp-ease), border-color var(--fp-dur-base) var(--fp-ease); }
+.fp-hover-lift:hover { transform: translateY(-2px); box-shadow: var(--fp-shadow-raised); border-color: var(--fp-border-strong); }
+
+/* Reduced motion: no movement, no looping, instant state changes. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fp-hover-lift:hover { transform: none; }
+  .fp-skeleton { animation: none; background: var(--fp-card-raised); }
+  .fp-status-dot[data-live='true'] { animation: none; }
+  .fp-route-draw { stroke-dashoffset: 0; }
+  .fp-route-flow { animation: none; }
+}

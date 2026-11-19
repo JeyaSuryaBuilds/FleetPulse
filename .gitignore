@@ -1,0 +1,83 @@
+Environment variables and secrets
+
+.env
+.env.*
+!.env.example
+*/.env
+/.env.
+!/.env.example
+
+Java / Maven
+
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+Node / React / Vite
+
+**/node_modules/
+**/dist/
+*/.vite/
+/coverage/
+npm-debug.log
+yarn-debug.log
+pnpm-debug.log
+
+IDEs and editors
+
+.idea/
+.vscode/
+*.iml
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+Operating system
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+Logs
+
+*.log
+logs/
+
+Temporary files
+
+*.tmp
+*.temp
+*.swp
+*.bak
+
+Build and cache
+
+.cache/
+.parcel-cache/
+.eslintcache/
+
+Local database backups and dumps
+
+*.sql
+*.sql.gz
+*.dump
+*.bak
+
+Certificates and private keys
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+
+Local uploads and generated files
+
+uploads/
+storage/
+temp/
+tmp/
+*.local

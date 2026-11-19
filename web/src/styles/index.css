@@ -1,0 +1,9 @@
+/* Entry stylesheet. Import once in main.jsx:  import './styles/index.css'; */
+@import '@fontsource-variable/inter';
+@import './tokens.css';
+@import './components.css';
+@import './animations.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
